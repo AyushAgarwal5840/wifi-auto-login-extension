@@ -16,21 +16,34 @@ document.addEventListener("DOMContentLoaded", () => {
             password: password.value,
             enabled: enabled.checked
         });
+
+        // ✅ Reset status if disabled
+        if (!enabled.checked) {
+            chrome.storage.local.set({ currentStatus: "disconnected" });
+        }
+
         alert("Settings saved!");
     });
 
-    loadStatusAndLogs(); // ✅ call here
-
+    loadStatusAndLogs();
 });
 
 
 function loadStatusAndLogs() {
-    chrome.storage.local.get(["currentStatus", "logs"], (data) => {
+    chrome.storage.local.get(["currentStatus", "logs", "enabled"], (data) => {
 
-        document.getElementById("statusText").innerText =
-            data.currentStatus || "Unknown";
-
+        const statusText = document.getElementById("statusText");
         const logsDiv = document.getElementById("logs");
+        const container = document.getElementById("container");
+
+        // 🧠 STATUS TEXT
+        if (!data.enabled) {
+            statusText.innerText = "⏸ Auto Login Paused";
+        } else {
+            statusText.innerText = data.currentStatus || "Unknown";
+        }
+
+        // 🧠 CLEAR LOGS
         logsDiv.innerHTML = "";
 
         if (data.logs) {
@@ -41,18 +54,17 @@ function loadStatusAndLogs() {
             });
         }
 
-        // ✅ MOVE THIS INSIDE CALLBACK
-        const container = document.getElementById("container");
+        // 🎨 ANIMATION STATE
+        container.classList.remove(
+            "status-checking",
+            "status-connected",
+            "status-disconnected"
+        );
 
-        if (data.currentStatus && container) {
-            container.classList.remove(
-                "status-checking",
-                "status-connected",
-                "status-disconnected"
-            );
-
-            container.classList.add("status-" + data.currentStatus);
-        }
-
+        if (!data.enabled) {
+    container.classList.add("status-paused");
+} else if (data.currentStatus) {
+    container.classList.add("status-" + data.currentStatus);
+}
     });
 }

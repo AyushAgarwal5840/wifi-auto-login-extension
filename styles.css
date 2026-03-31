@@ -128,12 +128,92 @@ button:hover {
 }
 
 .status-connected .bar {
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(to top, #28a745, #6cff8f);
     animation: connectedWave 1.2s infinite ease-in-out;
     box-shadow: 0 0 6px rgba(40, 167, 69, 0.7);
 }
+
+.status-connected .bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
 .status-connected .bar1 { animation-delay: 0s; }
 .status-connected .bar2 { animation-delay: 0.15s; }
 .status-connected .bar3 { animation-delay: 0.3s; }
 .status-connected .bar4 { animation-delay: 0.45s; }
+
+.toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.toggle input {
+    display: none;
+}
+
+.slider {
+    width: 40px;
+    height: 20px;
+    background: #555;
+    border-radius: 20px;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* Circle */
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 2px;
+    top: 2px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+/* ON STATE */
+.toggle input:checked + .slider {
+    background: #28a745;
+}
+
+/* Move circle */
+.toggle input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+/* ⏸ PAUSED STATE */
+.status-paused {
+    opacity: 0.6;
+    filter: grayscale(40%);
+}
+
+.status-paused .bar {
+    animation: none !important;
+    background: #888;
+    box-shadow: none;
+}
 

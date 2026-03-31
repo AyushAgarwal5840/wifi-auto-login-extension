@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -9,7 +10,6 @@
 
     <h2>WiFi Auto Login</h2>
 
-    <!-- ✅ WiFi Signal moved here -->
     <div id="wifi-signal">
         <span class="bar bar1"></span>
         <span class="bar bar2"></span>
@@ -17,19 +17,22 @@
         <span class="bar bar4"></span>
     </div>
 
-    <label>
+   
+
+    <label for="username">
         Username:
         <input type="text" id="username">
     </label>
 
-    <label>
+    <label for="password">
         Password:
         <input type="password" id="password">
     </label>
 
     <label class="toggle">
+        <span>Enable Auto Login</span>
         <input type="checkbox" id="enabled">
-        Enable Auto Login
+        <span class="slider"></span>
     </label>
 
     <button id="save">Save</button>
