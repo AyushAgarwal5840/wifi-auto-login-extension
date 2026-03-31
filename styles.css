@@ -32,3 +32,38 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.status-checking {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px rgba(255, 193, 7, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 193, 7, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(255, 193, 7, 0.3); }
+}
+
+.status-connected {
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.8);
+    transition: all 0.4s ease;
+    transform: scale(1.02);
+}
+
+.status-disconnected {
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.8);
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
+
+#container {
+    padding: 15px;
+    border-radius: 12px;
+    transition: all 0.4s ease;
+}

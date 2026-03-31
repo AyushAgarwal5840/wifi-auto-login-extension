@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Settings saved!");
     });
 
+    loadStatusAndLogs(); // ✅ call here
+
 });
 
 
@@ -38,7 +40,19 @@ function loadStatusAndLogs() {
                 logsDiv.appendChild(p);
             });
         }
+
+        // ✅ MOVE THIS INSIDE CALLBACK
+        const container = document.getElementById("container");
+
+        if (data.currentStatus && container) {
+            container.classList.remove(
+                "status-checking",
+                "status-connected",
+                "status-disconnected"
+            );
+
+            container.classList.add("status-" + data.currentStatus);
+        }
+
     });
 }
-
-document.addEventListener("DOMContentLoaded", loadStatusAndLogs);
