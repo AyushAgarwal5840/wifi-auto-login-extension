@@ -67,3 +67,73 @@ button:hover {
     border-radius: 12px;
     transition: all 0.4s ease;
 }
+
+#wifi-signal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;
+    margin: 10px 0;
+    height: 30px;
+}
+
+.bar {
+    width: 6px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.bar1 { height: 6px; }
+.bar2 { height: 12px; }
+.bar3 { height: 18px; }
+.bar4 { height: 24px; }
+
+.status-checking .bar {
+    animation: wave 1s infinite;
+}
+
+.status-checking .bar1 { animation-delay: 0s; }
+.status-checking .bar2 { animation-delay: 0.2s; }
+.status-checking .bar3 { animation-delay: 0.4s; }
+.status-checking .bar4 { animation-delay: 0.6s; }
+
+@keyframes wave {
+    0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+    50% { transform: scaleY(1.2); opacity: 1; }
+}
+
+.status-connected .bar {
+    background: #28a745;
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+.status-disconnected .bar {
+    background: #dc3545;
+    transform: scaleY(0.4);
+    opacity: 0.5;
+}
+
+@keyframes connectedWave {
+    0%   { transform: scaleY(0.9); opacity: 0.8; }
+    50%  { transform: scaleY(1.1); opacity: 1; }
+    100% { transform: scaleY(0.9); opacity: 0.8; }
+}
+
+.status-connected .bar {
+   background: linear-gradient(to top, #28a745, #6cff8f);
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+.status-connected .bar {
+    background: linear-gradient(to top, #28a745, #6cff8f);
+    animation: connectedWave 1.2s infinite ease-in-out;
+    box-shadow: 0 0 6px rgba(40, 167, 69, 0.7);
+}
+.status-connected .bar1 { animation-delay: 0s; }
+.status-connected .bar2 { animation-delay: 0.15s; }
+.status-connected .bar3 { animation-delay: 0.3s; }
+.status-connected .bar4 { animation-delay: 0.45s; }
+
