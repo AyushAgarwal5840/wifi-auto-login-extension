@@ -1,10 +1,29 @@
 body {
-    background-color: #1e1e1e;
-    color: white;
     font-family: Arial;
     padding: 15px;
     width: 260px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+
+    background: #0f0f12;
 }
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(83, 135, 255, 0.96), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(255, 0, 0, 0.814), transparent 40%),
+        radial-gradient(circle at 50% 80%, #8fff39, transparent 50%);
+
+    filter: blur(40px);
+}
+
+
 
 h2 {
     text-align: center;
@@ -63,10 +82,47 @@ button:hover {
 }
 
 #container {
+    position: relative;
     padding: 15px;
-    border-radius: 12px;
+    border-radius: 18px;
+
+    background: rgba(20, 20, 25, 0.6);
+    backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
     transition: all 0.4s ease;
 }
+
+#container::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        120deg,
+        rgba(0,255,200,0.4),
+        rgba(0,140,255,0.4),
+        rgba(180,0,255,0.4)
+    );
+
+    filter: blur(12px);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+
+@keyframes floatGradient {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+body::before {
+    animation: floatGradient 8s ease-in-out infinite;
+}
+
 
 #wifi-signal {
     display: flex;
@@ -217,3 +273,65 @@ button:hover {
     box-shadow: none;
 }
 
+/* 📜 LOG FADE-IN */
+.log-item {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 💧 RIPPLE EFFECT */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: rippleEffect 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.status-connected-text {
+    color: #4cff88;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    text-shadow: 0 0 8px rgba(76, 255, 136, 0.6);
+}
+
+/* Add icon before text */
+.status-connected-text::before {
+    content: "●";
+    font-size: 10px;
+    color: #4cff88;
+    animation: blink 1.5s infinite;
+}
+
+/* subtle pulse */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
